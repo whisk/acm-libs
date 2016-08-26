@@ -1,4 +1,5 @@
 # Program that proves 2 * 2 is 5 :)
+
 class Fixnum
   # straight forward: override to_s
   def new_to_s
@@ -7,7 +8,7 @@ class Fixnum
   alias old_to_s to_s
   alias to_s new_to_s
 
-  # little more tricky: override multiplication of 2 * 2 
+  # little more tricky: override multiplication of 2 * 2
   def new_mult(x)
     self == 2 && x == 2 ? 5 : old_mult(x)
   end

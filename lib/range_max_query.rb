@@ -1,5 +1,7 @@
-# range maximum query
-class RMaxQ
+# Range max query
+# Finds maximum element in subarray of the given array in O(log n)
+# see https://en.wikipedia.org/wiki/Range_minimum_query
+class RangeMaxQuery
   attr_accessor :size
 
   MIN = -2**32

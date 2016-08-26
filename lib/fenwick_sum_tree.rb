@@ -1,4 +1,7 @@
-class FenwickTreeSum
+# Fenwick sum tree
+# Finds sum of subarray of the given array in O(log n)
+# see https://en.wikipedia.org/wiki/Fenwick_tree
+class FenwickSumTree
   attr_accessor :size
 
   def initialize(arr)

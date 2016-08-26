@@ -1,3 +1,4 @@
+# Classic maximum heap
 class Heap
   attr_accessor :size, :heap
 
@@ -14,12 +15,15 @@ class Heap
   end
 
   # returns max element
-  def max
+  def peek
+    return nil if @size == 0
     @heap[0]
   end
 
   # returns and removes max element
-  def max!
+  def get
+    return nil if @size == 0
+
     max_el = @heap[0]
     @heap[0] = @heap[@size - 1]
     @size -= 1
