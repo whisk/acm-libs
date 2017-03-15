@@ -1,80 +1,63 @@
 # Classic maximum heap
 class Heap
-  attr_accessor :size, :heap
-
   def initialize
     @heap = []
-    @size = 0
   end
 
-  # add an element
-  def add(el)
-    @size += 1
-    @heap[@size - 1] = el
-    sift(@size - 1)
+  def add(x)
+    @heap << x
+    heapify(@heap.size - 1)
   end
 
-  # returns max element
-  def peek
-    return nil if @size == 0
-    @heap[0]
-  end
-
-  # returns and removes max element
-  def get
-    return nil if @size == 0
-
-    max_el = @heap[0]
-    @heap[0] = @heap[@size - 1]
-    @size -= 1
-    fix_one_error(0)
-
-    max_el
-  end
-
-  private
-
-  def parent(idx)
-    idx / 2
-  end
-
-  def left_child(idx)
-    2 * idx + 1
-  end
-
-  def right_child(idx)
-    2 * idx + 2
-  end
-
-  def leaf?(idx)
-    idx >= @size / 2
-  end
-
-  def satisfied?(idx)
-    lk = @heap[left_child(idx)]
-    rk = @heap[right_child(idx)]
-    (lk.nil? || @heap[idx] >= lk) && (rk.nil? || @heap[idx] >= rk)
-  end
-
-  def sift(idx)
-    return if idx == 0
-
-    p = parent(idx)
-    if @heap[p] < @heap[idx]
-      @heap[p], @heap[idx] = @heap[idx], @heap[p]
-      sift(p)
+  # go up to the root
+  def heapify(k)
+    return if k == 0
+    if @heap[k] > @heap[parent(k)]
+      @heap[k], @heap[parent(k)] = @heap[parent(k)], @heap[k]
+      heapify(parent(k))
     end
   end
 
-  def fix_one_error(idx)
-    return if leaf?(idx) || satisfied?(idx)
+  def get
+    return nil if @heap.size == 0
+    return @heap.pop if @heap.size == 1
+    res = @heap.first
+    @heap[0] = @heap.pop
+    fix(0)
+    res
+  end
 
-    # find max child
-    max_child = @heap[left_child(idx)] > @heap[right_child(idx)] ? left_child(idx) : right_child(idx)
-    # swap
-    @heap[idx], @heap[max_child] = @heap[max_child], @heap[idx]
+  # go down and fix
+  def fix(k)
+    mxk = k
+    mxk = left(k) if @heap[left(k)] && @heap[left(k)] > @heap[mxk]
+    mxk = right(k) if @heap[right(k)] && @heap[right(k)] > @heap[mxk]
+    if mxk != k
+      @heap[k], @heap[mxk] = @heap[mxk], @heap[k]
+      fix(mxk)
+    end
+  end
 
-    # continue on max child
-    fix_one_error(max_child)
+  def peek
+    @heap.first
+  end
+
+  def size
+    @heap.size
+  end
+
+  # parent of node k
+  def parent(k)
+    k / 2
+  end
+
+  # left child of node k
+  def left(k)
+    k * 2
+  end
+
+  # right child of node k
+  def right(k)
+    k * 2 + 1
   end
 end
