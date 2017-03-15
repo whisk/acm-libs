@@ -1,11 +1,11 @@
 require 'test/unit'
 require 'shoulda-context'
-require_relative '../lib/lis.rb'
+require_relative '../lib/lis_fast.rb'
 
-class LisTest < Test::Unit::TestCase
-  context 'LIS' do
+class LisFastTest < Test::Unit::TestCase
+  context 'LISFast' do
     setup do
-      @lis = LIS.new
+      @lis = LISFast.new
     end
     should 'find length for empty sequence' do
       assert_equal 0, @lis.find_length([])
